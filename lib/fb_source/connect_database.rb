@@ -13,6 +13,10 @@ class ConnectDatabase
     )
   end
 
+  def fetch(sql)
+    self.get_connection.query(:hash, sql)
+  end
+
   def get_connection
     @database.connect
   end
