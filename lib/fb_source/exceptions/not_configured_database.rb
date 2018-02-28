@@ -1,0 +1,2 @@
+class NotConfiguredDatabase < StandardError
+end

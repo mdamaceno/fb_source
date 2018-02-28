@@ -1,0 +1,2 @@
+class NotConfiguredOutput < StandardError
+end
