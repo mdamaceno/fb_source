@@ -42,6 +42,21 @@ Optionally, you can change the output directory passing parameters to the comman
 -o, --output PATH  # custom output path
 ```
 
+### Docker
+
+You can use FbSource with Docker if you want. Just use the following command:
+
+``` bash
+$ docker run --rm --net host \
+  -e DATABASE_HOST=locahost \
+  -e DATABASE_PORT=3050 \
+  -e DATABASE_NAME=/path-to-database/DATABASE.GDB \
+  -e DATABASE_USERNAME=username \
+  -e DATABASE_PASSWORD=password \
+  -v $HOME/output:/output:rw \
+  maadamaceno/fb_source
+```
+
 ## Contributing
 
 All the contributions are welcome. Submit your pull request!

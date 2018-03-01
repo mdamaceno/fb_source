@@ -1,17 +1,23 @@
-FROM ruby:2.4.1-slim
+FROM ruby:2.4
 
-ADD Gemfile /app/
-ADD Gemfile.lock /app/
+RUN apt-get update -qq && apt-get install -y build-essential firebird2.5-dev
 
-RUN apt-get update && apt-get install -y build-essential
-
-RUN gem install bundler --no-ri --no-rdoc && \
-    cd /app && bundle install --without development test
-
-ADD . /app
-RUN chown -R nobody:nogroup /app
-USER nobody
-
-ENV RACK_ENV production
+RUN mkdir /app
+RUN mkdir /output
 
 WORKDIR /app
+
+ADD Gemfile /app/Gemfile
+
+ADD Gemfile.lock /app/Gemfile.lock
+
+RUN bundle install
+
+RUN chmod 775 -R /output
+
+ADD . /app
+
+ENV OUTPUT_PATH=/output
+VOLUME /output
+
+CMD ruby run.rb
