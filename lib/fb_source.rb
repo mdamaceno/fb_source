@@ -45,7 +45,7 @@ class FbSource
 
   # It creates a directory if it does not exist
   def create_dir(path)
-    FileUtils.mkdir_p(path) unless File.exists?(path)
+    FileUtils.mkdir_p(path, { mode: 0775 }) unless File.exists?(path)
   end
 
   # It deletes all the content in the target directory
