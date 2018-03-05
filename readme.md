@@ -60,7 +60,7 @@ $ docker run --rm --net host \
 
 $ docker run --rm --net host \
   --env-file $PWD/env \ # path to an env file
-  -v $HOME/backup-fb:/output \
+  -v $PATH:/output \
   maadamaceno/fb_source
 
 ```
