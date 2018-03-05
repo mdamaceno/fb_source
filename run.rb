@@ -37,19 +37,7 @@ fb_source = FbSource.new({
   output_path: output_path,
 })
 
-# Get procedures from database
-fb_source.get_procedures.each do |row|
-  fb_source.write_source("#{output_path}/procedures", row['RDB$PROCEDURE_NAME'], row['RDB$PROCEDURE_SOURCE'])
-end
-
-# Get triggers from database
-fb_source.get_triggers.each do |row|
-  fb_source.write_source("#{output_path}/triggers", row['RDB$TRIGGER_NAME'], row['RDB$TRIGGER_SOURCE'])
-end
-
-# Get views from database
-fb_source.get_views.each do |row|
-  fb_source.write_source("#{output_path}/views", row['RDB$RELATION_NAME'], row['RDB$VIEW_SOURCE'])
-end
+fb_source.run
 
 puts "Script finished!"
+puts "Please, give me a star at https://github.com/mdamaceno/fb_source"

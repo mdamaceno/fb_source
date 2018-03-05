@@ -14,12 +14,22 @@ class FbSource
       password: ENV['DATABASE_PASSWORD']
     })
 
-    self.delete_content_dir("#{args[0][:output_path]}")
-
-    self.create_dir("#{args[0][:output_path]}/procedures")
-    self.create_dir("#{args[0][:output_path]}/triggers")
-    self.create_dir("#{args[0][:output_path]}/views")
+    @output_path = args[0][:output_path]
   end
+
+  def run
+    self.delete_content_dir(@output_path)
+
+    self.create_dir("#{@output_path}/procedures")
+    self.create_dir("#{@output_path}/triggers")
+    self.create_dir("#{@output_path}/views")
+
+    write_procedures
+    write_triggers
+    write_views
+  end
+
+  protected
 
   # SQL script for getting the procedures from the database
   def get_procedures
@@ -34,6 +44,27 @@ class FbSource
   # SQL script for getting the views from the database
   def get_views
     @db.fetch("SELECT RDB$RELATION_NAME, RDB$VIEW_SOURCE FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0)")
+  end
+
+  # Write procedures
+  def write_procedures
+    self.get_procedures.each do |row|
+      self.write_source("#{@output_path}/procedures", row['RDB$PROCEDURE_NAME'], row['RDB$PROCEDURE_SOURCE'])
+    end
+  end
+
+  # Write triggers
+  def write_triggers
+    self.get_triggers.each do |row|
+      self.write_source("#{@output_path}/triggers", row['RDB$TRIGGER_NAME'], row['RDB$TRIGGER_SOURCE'])
+    end
+  end
+
+  # Write views
+  def write_views
+    self.get_views.each do |row|
+      self.write_source("#{@output_path}/views", row['RDB$RELATION_NAME'], row['RDB$VIEW_SOURCE'])
+    end
   end
 
   # It creates the files in the target directory
