@@ -55,6 +55,14 @@ $ docker run --rm --net host \
   -e DATABASE_PASSWORD=password \
   -v $PATH:/output \
   maadamaceno/fb_source
+
+# OR
+
+$ docker run --rm --net host \
+  --env-file $PWD/env \ # path to an env file
+  -v $HOME/backup-fb:/output \
+  maadamaceno/fb_source
+
 ```
 
 *Change **$PATH** to the path where you want to store the backup.*
