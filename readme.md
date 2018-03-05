@@ -44,26 +44,24 @@ Optionally, you can change the output directory passing parameters to the comman
 
 ### Docker
 
-You can use FbSource with Docker if you want. Just use the following command:
+You can use **FbSource** with Docker if you want. Just use the following command:
 
 ``` bash
 $ docker run --rm --net host \
-  -e DATABASE_HOST=locahost \
+  -e DATABASE_HOST=localhost \
   -e DATABASE_PORT=3050 \
   -e DATABASE_NAME=/path-to-database/DATABASE.GDB \
   -e DATABASE_USERNAME=username \
   -e DATABASE_PASSWORD=password \
-  -v $HOME/output:/output:rw \
+  -v $PATH:/output \
   maadamaceno/fb_source
 ```
+
+*Change **$PATH** to the path where you want to store the backup.*
 
 ## Contributing
 
 All the contributions are welcome. Submit your pull request!
-
-## Authors
-
-See the list of [contributors](contributors.md) who participated in this project.
 
 ## License
 
