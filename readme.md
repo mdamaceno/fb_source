@@ -53,19 +53,19 @@ $ docker run --rm --net host \
   -e DATABASE_NAME=/path-to-database/DATABASE.GDB \
   -e DATABASE_USERNAME=username \
   -e DATABASE_PASSWORD=password \
-  -v $PATH:/output \
+  -v $PWD/backup_fb:/output \
   maadamaceno/fb_source
 
 # OR
 
 $ docker run --rm --net host \
   --env-file $PWD/env \ # path to an env file
-  -v $PATH:/output \
+  -v $PWD/backup_fb:/output \
   maadamaceno/fb_source
 
 ```
 
-*Change **$PATH** to the path where you want to store the backup.*
+*Change **$PWD/backup_fb** to the path where you want to store the backup.*
 
 ## Contributing
 
