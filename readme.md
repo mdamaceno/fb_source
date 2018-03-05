@@ -4,7 +4,7 @@ It makes a backup of procedures, triggers and views from a Firebird database. It
 
 ## Getting Started
 
-**FB Source** uses Ruby, so you need to have it installed on your machine. I recommend install Ruby via [RVM](https://rvm.io/) or [rbenv](https://github.com/rbenv/rbenv).
+**FB Source** uses Ruby, so you need to have it installed on your machine. I recommend installing Ruby via [RVM](https://rvm.io/) or [rbenv](https://github.com/rbenv/rbenv).
 
 Clone the repository:
 
