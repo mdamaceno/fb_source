@@ -11,5 +11,8 @@ DEPENDENCIES
   dotenv
   fb
 
+RUBY VERSION
+   ruby 2.4.3p205
+
 BUNDLED WITH
-   1.15.4
+   1.16.1
