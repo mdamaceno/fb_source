@@ -12,13 +12,10 @@ class FbSource
   def run
     delete_content_dir(@output_path)
 
-    create_dir("#{@output_path}/procedures")
-    create_dir("#{@output_path}/triggers")
-    create_dir("#{@output_path}/views")
-
-    write_procedures
-    write_triggers
-    write_views
+    %w(procedures triggers views).each do |d|
+      create_dir("#{@output_path}/#{d}")
+      send("write_#{d}")
+    end
   end
 
   private
