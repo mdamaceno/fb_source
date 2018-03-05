@@ -6,14 +6,6 @@ require_relative './fb_source/connect_database.rb'
 # creating directory and deleting contents.
 class FbSource
   def initialize(*args)
-    @db = ConnectDatabase.new({
-      host: ENV['DATABASE_HOST'],
-      port: ENV['DATABASE_PORT'],
-      database: ENV['DATABASE_NAME'],
-      username: ENV['DATABASE_USERNAME'],
-      password: ENV['DATABASE_PASSWORD']
-    })
-
     @output_path = args[0][:output_path]
   end
 
@@ -31,19 +23,29 @@ class FbSource
 
   private
 
+  def connect_db
+    ConnectDatabase.new({
+      host: ENV['DATABASE_HOST'],
+      port: ENV['DATABASE_PORT'],
+      database: ENV['DATABASE_NAME'],
+      username: ENV['DATABASE_USERNAME'],
+      password: ENV['DATABASE_PASSWORD']
+    })
+  end
+
   # SQL script for getting the procedures from the database
   def get_procedures
-    @db.fetch("SELECT RDB$PROCEDURE_NAME, RDB$PROCEDURE_SOURCE  FROM RDB$PROCEDURES")
+    connect_db.fetch("SELECT RDB$PROCEDURE_NAME, RDB$PROCEDURE_SOURCE  FROM RDB$PROCEDURES")
   end
 
   # SQL script for getting the triggers from the database
   def get_triggers
-    @db.fetch("SELECT RDB$TRIGGER_NAME, RDB$TRIGGER_SOURCE FROM RDB$TRIGGERS WHERE RDB$SYSTEM_FLAG = 0")
+    connect_db.fetch("SELECT RDB$TRIGGER_NAME, RDB$TRIGGER_SOURCE FROM RDB$TRIGGERS WHERE RDB$SYSTEM_FLAG = 0")
   end
 
   # SQL script for getting the views from the database
   def get_views
-    @db.fetch("SELECT RDB$RELATION_NAME, RDB$VIEW_SOURCE FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0)")
+    connect_db.fetch("SELECT RDB$RELATION_NAME, RDB$VIEW_SOURCE FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0)")
   end
 
   # Write procedures
