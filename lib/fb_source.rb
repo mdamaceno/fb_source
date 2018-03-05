@@ -18,18 +18,18 @@ class FbSource
   end
 
   def run
-    self.delete_content_dir(@output_path)
+    delete_content_dir(@output_path)
 
-    self.create_dir("#{@output_path}/procedures")
-    self.create_dir("#{@output_path}/triggers")
-    self.create_dir("#{@output_path}/views")
+    create_dir("#{@output_path}/procedures")
+    create_dir("#{@output_path}/triggers")
+    create_dir("#{@output_path}/views")
 
     write_procedures
     write_triggers
     write_views
   end
 
-  protected
+  private
 
   # SQL script for getting the procedures from the database
   def get_procedures
@@ -48,22 +48,22 @@ class FbSource
 
   # Write procedures
   def write_procedures
-    self.get_procedures.each do |row|
-      self.write_source("#{@output_path}/procedures", row['RDB$PROCEDURE_NAME'], row['RDB$PROCEDURE_SOURCE'])
+    get_procedures.each do |row|
+      write_source("#{@output_path}/procedures", row['RDB$PROCEDURE_NAME'], row['RDB$PROCEDURE_SOURCE'])
     end
   end
 
   # Write triggers
   def write_triggers
-    self.get_triggers.each do |row|
-      self.write_source("#{@output_path}/triggers", row['RDB$TRIGGER_NAME'], row['RDB$TRIGGER_SOURCE'])
+    get_triggers.each do |row|
+      write_source("#{@output_path}/triggers", row['RDB$TRIGGER_NAME'], row['RDB$TRIGGER_SOURCE'])
     end
   end
 
   # Write views
   def write_views
-    self.get_views.each do |row|
-      self.write_source("#{@output_path}/views", row['RDB$RELATION_NAME'], row['RDB$VIEW_SOURCE'])
+    get_views.each do |row|
+      write_source("#{@output_path}/views", row['RDB$RELATION_NAME'], row['RDB$VIEW_SOURCE'])
     end
   end
 
